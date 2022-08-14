@@ -147,7 +147,7 @@ class IsReproducibleTest(fake_filesystem_unittest.TestCase):
     """Tests that is_reproducible raises an error if it could not attempt
     reproduction because the fuzzer doesn't exist."""
     with self.assertRaises(fuzz_target.ReproduceError):
-      self.target.is_reproducible(self.testcase_path, '/non-existent-path', [])
+      self.target.is_reproducible(self.testcase_path, '/nonexistent-path', [])
 
   def test_unreproducible(self, _):
     """Tests that is_reproducible returns False for a crash that did not

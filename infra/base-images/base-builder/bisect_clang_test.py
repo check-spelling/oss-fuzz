@@ -85,7 +85,7 @@ class SearchBisectOutputTest(BisectClangTestMixin, unittest.TestCase):
                      bisect_clang.search_bisect_output(test_data))
 
   def test_search_bisect_output_none(self):
-    """Test that search_bisect_output doesnt find a non-existent culprit
+    """Test that search_bisect_output doesnt find a nonexistent culprit
     commit."""
     self.assertIsNone(bisect_clang.search_bisect_output('hello'))
 
