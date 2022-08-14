@@ -175,16 +175,16 @@ def get_ci(config):
   if config.platform == config.Platform.EXTERNAL_GITHUB:
     # Non-OSS-Fuzz projects must bring their own source and their own build
     # integration (which is relative to that source).
-    return ExternalGithub(config)
+    return ExternalGitHub(config)
 
   if config.platform == config.Platform.INTERNAL_GENERIC_CI:
-    # Builds of OSS-Fuzz projects not hosted on Github must bring their own
+    # Builds of OSS-Fuzz projects not hosted on GitHub must bring their own
     # source since the checkout logic CIFuzz implements is github-specific.
-    # TODO(metzman): Consider moving Github-actions builds of OSS-Fuzz projects
+    # TODO(metzman): Consider moving GitHub-actions builds of OSS-Fuzz projects
     # to this system to reduce implementation complexity.
     return InternalGeneric(config)
 
-  return InternalGithub(config)
+  return InternalGitHub(config)
 
 
 def checkout_specified_commit(repo_manager_obj, pr_ref, git_sha):
@@ -201,8 +201,8 @@ def checkout_specified_commit(repo_manager_obj, pr_ref, git_sha):
         'Using current repo state.', pr_ref or git_sha)
 
 
-class GithubCiMixin:
-  """Mixin for Github based CI systems."""
+class GitHubCiMixin:
+  """Mixin for GitHub based CI systems."""
 
   def __init__(self, config):
     super().__init__(config)
@@ -230,8 +230,8 @@ class GithubCiMixin:
     return repo_path
 
 
-class InternalGithub(GithubCiMixin, BaseCi):
-  """Class representing CI for an OSS-Fuzz project on Github Actions."""
+class InternalGitHub(GitHubCiMixin, BaseCi):
+  """Class representing CI for an OSS-Fuzz project on GitHub Actions."""
 
   def _copy_repo_from_image(self, image_repo_path):
     self._make_repo_storage_dir()
@@ -252,7 +252,7 @@ class InternalGithub(GithubCiMixin, BaseCi):
   def prepare_for_fuzzer_build(self):
     """Builds the fuzzer builder image, checks out the pull request/commit and
     returns the BuildPreparationResult."""
-    logging.info('InternalGithub: preparing for fuzzer build.')
+    logging.info('InternalGitHub: preparing for fuzzer build.')
     assert self.config.pr_ref or self.config.git_sha
     # _detect_main_repo builds the image as a side effect.
     _, image_repo_path = self._detect_main_repo()
@@ -281,7 +281,7 @@ def get_build_preparation_failure():
 
 
 class InternalGeneric(BaseCi):
-  """Class representing CI for an OSS-Fuzz project on a CI other than Github
+  """Class representing CI for an OSS-Fuzz project on a CI other than GitHub
   actions."""
 
   def __init__(self, config):
@@ -353,15 +353,15 @@ class ExternalGeneric(BaseCi):
     return get_build_command()
 
 
-class ExternalGithub(GithubCiMixin, BaseCi):
-  """Class representing CI for a non-OSS-Fuzz project on Github Actions."""
+class ExternalGitHub(GitHubCiMixin, BaseCi):
+  """Class representing CI for a non-OSS-Fuzz project on GitHub Actions."""
 
   def prepare_for_fuzzer_build(self):
     """Builds the project builder image for a non-OSS-Fuzz project on GitHub
     actions. Sets the repo manager. Does not checkout source code since external
     projects are expected to bring their own source code to CIFuzz. Returns True
     on success."""
-    logging.info('ExternalGithub: preparing for fuzzer build.')
+    logging.info('ExternalGitHub: preparing for fuzzer build.')
     # Checkout before building, so we don't need to rely on copying the source
     # from the image.
     # TODO(metzman): Figure out if we want second copy at all.

@@ -37,7 +37,7 @@ import test_utils
 
 # pylint: disable=too-few-public-methods
 class Repository:
-  """Mocking Github Repository."""
+  """Mocking GitHub Repository."""
 
   def __init__(self, name, file_type, path, contents=None):
     self.contents = contents or []

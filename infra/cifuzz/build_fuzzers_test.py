@@ -89,7 +89,7 @@ class BuildFuzzersTest(unittest.TestCase):
     self.assertTrue(command_has_env_var_arg(docker_run_command, 'CIFUZZ=True'))
 
 
-class InternalGithubBuildTest(unittest.TestCase):
+class InternalGitHubBuildTest(unittest.TestCase):
   """Tests for building OSS-Fuzz projects on GitHub actions."""
   PROJECT_REPO_NAME = 'myproject'
   SANITIZER = 'address'
@@ -97,7 +97,7 @@ class InternalGithubBuildTest(unittest.TestCase):
   PR_REF = 'fake'
 
   def _create_builder(self, tmp_dir, oss_fuzz_project_name='myproject'):
-    """Creates an InternalGithubBuilder and returns it."""
+    """Creates an InternalGitHubBuilder and returns it."""
     config = test_helpers.create_build_config(
         oss_fuzz_project_name=oss_fuzz_project_name,
         project_repo_name=self.PROJECT_REPO_NAME,
@@ -171,7 +171,7 @@ class BuildFuzzersIntegrationTest(unittest.TestCase):
     self.temp_dir_ctx_manager.__exit__(None, None, None)
 
   def test_external_github_project(self):
-    """Tests building fuzzers from an external project on Github."""
+    """Tests building fuzzers from an external project on GitHub."""
     project_repo_name = 'external-project'
     git_url = 'https://github.com/jonathanmetzman/cifuzz-external-example.git'
     # This test is dependant on the state of
@@ -188,7 +188,7 @@ class BuildFuzzersIntegrationTest(unittest.TestCase):
         os.path.exists(os.path.join(self.out_dir, EXAMPLE_BUILD_FUZZER)))
 
   def test_external_generic_project(self):
-    """Tests building fuzzers from an external project not on Github."""
+    """Tests building fuzzers from an external project not on GitHub."""
     project_repo_name = 'cifuzz-external-example'
     git_url = 'https://github.com/jonathanmetzman/cifuzz-external-example.git'
     # This test is dependant on the state of

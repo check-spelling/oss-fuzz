@@ -23,7 +23,7 @@ import filestore.gitlab
 FILESTORE_MAPPING = {
     'filesystem': filestore.filesystem.FilesystemFilestore,
     'gsutil': filestore.gsutil.GSUtilFilestore,
-    'github-actions': filestore.github_actions.GithubActionsFilestore,
+    'github-actions': filestore.github_actions.GitHubActionsFilestore,
     'git': filestore.git.GitFilestore,
     # TODO(metzman): Change to "no-filestore"
     'no_filestore': filestore.no_filestore.NoFilestore,
@@ -35,7 +35,7 @@ def get_filestore(config):
   """Returns the correct filestore object based on the platform in |config|.
   Raises an exception if there is no correct filestore for the platform."""
   if config.platform == config.Platform.EXTERNAL_GITHUB:
-    ci_filestore = filestore.github_actions.GithubActionsFilestore(config)
+    ci_filestore = filestore.github_actions.GitHubActionsFilestore(config)
     if not config.git_store_repo:
       return ci_filestore
 

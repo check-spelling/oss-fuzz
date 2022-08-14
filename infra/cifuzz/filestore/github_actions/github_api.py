@@ -59,7 +59,7 @@ def _do_get_request(*args, **kwargs):
 def _get_items(url, headers):
   """Generator that gets and yields items from a GitHub API endpoint (specified
   by |URL|) sending |headers| with the get request."""
-  # Github API response pages are 1-indexed.
+  # GitHub API response pages are 1-indexed.
   page_counter = 1
 
   # Set to infinity so we run loop at least once.
@@ -74,7 +74,7 @@ def _get_items(url, headers):
       # Check that request was successful.
       logging.error('Request to %s failed. Code: %d. Response: %s',
                     response.request.url, response.status_code, response_json)
-      raise filestore.FilestoreError('Github API request failed.')
+      raise filestore.FilestoreError('GitHub API request failed.')
 
     if total_num_items == float('inf'):
       # Set proper total_num_items

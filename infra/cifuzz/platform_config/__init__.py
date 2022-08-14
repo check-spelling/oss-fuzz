@@ -50,7 +50,7 @@ class BasePlatformConfig:
     repo because the copy they give us doesn't work for diffing.
 
     TODO(metzman): Try to eliminate the need for this by 1. Making the clone
-    from external github projects usable. 2. Forcing OSS-Fuzz on Github to clone
+    from external github projects usable. 2. Forcing OSS-Fuzz on GitHub to clone
     before starting CIFuzz."""
     return None
 
@@ -76,7 +76,7 @@ class BasePlatformConfig:
     repo because the copy they give us doesn't work for diffing.
 
     TODO(metzman): Try to eliminate the need for this by 1. Making the clone
-    from external github projects usable. 2. Forcing OSS-Fuzz on Github to clone
+    from external github projects usable. 2. Forcing OSS-Fuzz on GitHub to clone
     before starting CIFuzz."""
     return None
 

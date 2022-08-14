@@ -30,7 +30,7 @@ class GetFilestoreTest(unittest.TestCase):
   @parameterized.parameterized.expand([
       ({
           'cfl_platform': 'github',
-      }, github_actions.GithubActionsFilestore),
+      }, github_actions.GitHubActionsFilestore),
   ])
   def test_get_filestore(self, config_kwargs, filestore_cls):
     """Tests that get_filestore returns the right filestore given a certain

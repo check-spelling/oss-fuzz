@@ -136,7 +136,7 @@ class ClusterFuzzLiteTest(fake_filesystem_unittest.TestCase):
     self.corpus_dir = os.path.join(self.deployment.workspace.corpora,
                                    EXAMPLE_FUZZER)
 
-  @mock.patch('filestore.github_actions.GithubActionsFilestore.download_corpus',
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore.download_corpus',
               return_value=True)
   def test_download_corpus(self, mock_download_corpus):
     """Tests that download_corpus works for a valid project."""
@@ -145,7 +145,7 @@ class ClusterFuzzLiteTest(fake_filesystem_unittest.TestCase):
                                             self.corpus_dir)
     self.assertTrue(os.path.exists(self.corpus_dir))
 
-  @mock.patch('filestore.github_actions.GithubActionsFilestore.download_corpus',
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore.download_corpus',
               side_effect=Exception)
   def test_download_corpus_fail(self, _):
     """Tests that when downloading fails, an empty corpus directory is still
@@ -153,11 +153,11 @@ class ClusterFuzzLiteTest(fake_filesystem_unittest.TestCase):
     self.deployment.download_corpus(EXAMPLE_FUZZER, self.corpus_dir)
     self.assertEqual(os.listdir(self.corpus_dir), [])
 
-  @mock.patch('filestore.github_actions.GithubActionsFilestore.download_build',
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore.download_build',
               side_effect=[False, True])
   @mock.patch('repo_manager.RepoManager.get_commit_list',
               return_value=['commit1', 'commit2'])
-  @mock.patch('continuous_integration.GithubCiMixin.repo_dir',
+  @mock.patch('continuous_integration.GitHubCiMixin.repo_dir',
               return_value='/path/to/repo')
   def test_download_latest_build(self, mock_repo_dir, mock_get_commit_list,
                                  mock_download_build):
@@ -169,11 +169,11 @@ class ClusterFuzzLiteTest(fake_filesystem_unittest.TestCase):
     mock_download_build.assert_called_with(expected_artifact_name,
                                            EXPECTED_LATEST_BUILD_PATH)
 
-  @mock.patch('filestore.github_actions.GithubActionsFilestore.download_build',
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore.download_build',
               side_effect=Exception)
   @mock.patch('repo_manager.RepoManager.get_commit_list',
               return_value=['commit1', 'commit2'])
-  @mock.patch('continuous_integration.GithubCiMixin.repo_dir',
+  @mock.patch('continuous_integration.GitHubCiMixin.repo_dir',
               return_value='/path/to/repo')
   def test_download_latest_build_fail(self, mock_repo_dir, mock_get_commit_list,
                                       _):
@@ -181,7 +181,7 @@ class ClusterFuzzLiteTest(fake_filesystem_unittest.TestCase):
     build."""
     self.assertIsNone(self.deployment.download_latest_build())
 
-  @mock.patch('filestore.github_actions.GithubActionsFilestore.upload_build')
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore.upload_build')
   def test_upload_build(self, mock_upload_build):
     """Tests that upload_build works as intended."""
     self.deployment.upload_build('commit')

@@ -48,7 +48,7 @@ def delete_unneeded_docker_images(config):
 def run_fuzzers_entrypoint():
   """This is the entrypoint for the run_fuzzers github action.
   This action can be added to any OSS-Fuzz project's workflow that uses
-  Github."""
+  GitHub."""
   config = config_utils.RunFuzzersConfig()
   # The default return code when an error occurs.
   returncode = 1

@@ -33,8 +33,8 @@ import test_helpers
 # pylint: disable=protected-access,no-self-use
 
 
-class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
-  """Tests for GithubActionsFilestore."""
+class GitHubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
+  """Tests for GitHubActionsFilestore."""
 
   @mock.patch('platform_config.github._get_event_data', return_value={})
   def setUp(self, _):  # pylint: disable=arguments-differ
@@ -59,20 +59,20 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
   @mock.patch('filestore.github_actions.github_api.list_artifacts')
   def test_list_artifacts(self, mock_list_artifacts):
     """Tests that _list_artifacts works as intended."""
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     filestore._list_artifacts()
     mock_list_artifacts.assert_called_with(self.owner, self.repo,
                                            self._get_expected_http_headers())
 
   @mock.patch('logging.warning')
-  @mock.patch('filestore.github_actions.GithubActionsFilestore._list_artifacts',
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore._list_artifacts',
               return_value=None)
   @mock.patch('filestore.github_actions.github_api.find_artifact',
               return_value=None)
   def test_download_build_no_artifact(self, _, __, mock_warning):
     """Tests that download_build returns None and doesn't exception when
     find_artifact can't find an artifact."""
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     name = 'name'
     build_dir = 'build-dir'
     self.assertFalse(filestore.download_build(name, build_dir))
@@ -80,14 +80,14 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
                                     'cifuzz-build-' + name)
 
   @mock.patch('logging.warning')
-  @mock.patch('filestore.github_actions.GithubActionsFilestore._list_artifacts',
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore._list_artifacts',
               return_value=None)
   @mock.patch('filestore.github_actions.github_api.find_artifact',
               return_value=None)
   def test_download_corpus_no_artifact(self, _, __, mock_warning):
     """Tests that download_corpus_build returns None and doesn't exception when
     find_artifact can't find an artifact."""
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     name = 'name'
     dst_dir = 'local-dir'
     self.assertFalse(filestore.download_corpus(name, dst_dir))
@@ -105,7 +105,7 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
 
     mock_tar_directory.side_effect = mock_tar_directory_impl
 
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     filestore.upload_corpus('target', self.local_dir)
     self.assert_upload(mock_upload_artifact, mock_tar_directory,
                        'corpus-target')
@@ -115,7 +115,7 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
     """Test uploading crashes."""
     self._create_local_dir()
 
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     filestore.upload_crashes('current', self.local_dir)
     mock_upload_artifact.assert_has_calls(
         [mock.call('crashes-current', ['/local-dir/testcase'], '/local-dir')])
@@ -131,7 +131,7 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
 
     mock_tar_directory.side_effect = mock_tar_directory_impl
 
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     filestore.upload_build('sanitizer', self.local_dir)
     self.assert_upload(mock_upload_artifact, mock_tar_directory,
                        'build-sanitizer')
@@ -147,7 +147,7 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
 
     mock_tar_directory.side_effect = mock_tar_directory_impl
 
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     filestore.upload_coverage('latest', self.local_dir)
     self.assert_upload(mock_upload_artifact, mock_tar_directory,
                        'coverage-latest')
@@ -178,7 +178,7 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
     self.setUpPyfakefs()
     self.fs.create_file(self.testcase, contents='hi')
 
-  @mock.patch('filestore.github_actions.GithubActionsFilestore._find_artifact')
+  @mock.patch('filestore.github_actions.GitHubActionsFilestore._find_artifact')
   @mock.patch('http_utils.download_and_unpack_zip')
   def test_download_artifact(self, mock_download_and_unpack_zip,
                              mock_find_artifact):
@@ -212,7 +212,7 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
 
       mock_download_and_unpack_zip.side_effect = (
           mock_download_and_unpack_zip_impl)
-      filestore = github_actions.GithubActionsFilestore(self.config)
+      filestore = github_actions.GitHubActionsFilestore(self.config)
       self.assertTrue(
           filestore._download_artifact('corpus', artifact_download_dst_dir))
       mock_find_artifact.assert_called_with('cifuzz-corpus')
@@ -249,7 +249,7 @@ class GithubActionsFilestoreTest(fake_filesystem_unittest.TestCase):
         artifact_listing_4
     ]
     mock_list_artifacts.return_value = artifacts
-    filestore = github_actions.GithubActionsFilestore(self.config)
+    filestore = github_actions.GitHubActionsFilestore(self.config)
     # Test that find_artifact will return the most recent unexpired artifact
     # with the correct name.
     self.assertEqual(filestore._find_artifact('artifact'), artifact_listing_2)

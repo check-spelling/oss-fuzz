@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Implementation of a filestore using Github actions artifacts."""
+"""Implementation of a filestore using GitHub actions artifacts."""
 import logging
 import os
 import shutil
@@ -47,8 +47,8 @@ def tar_directory(directory, archive_path):
                       base_dir='./')
 
 
-class GithubActionsFilestore(filestore.BaseFilestore):
-  """Implementation of BaseFilestore using Github actions artifacts. Relies on
+class GitHubActionsFilestore(filestore.BaseFilestore):
+  """Implementation of BaseFilestore using GitHub actions artifacts. Relies on
   github_actions_toolkit for using the GitHub actions API and the github_api
   module for using GitHub's standard API. We need to use both because the GitHub
   actions API is the only way to upload an artifact but it does not support

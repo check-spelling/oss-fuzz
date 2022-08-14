@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Module for getting the configuration CIFuzz needs to run on Github."""
+"""Module for getting the configuration CIFuzz needs to run on GitHub."""
 import json
 import logging
 import os
@@ -52,7 +52,7 @@ class PlatformConfig(platform_config.BasePlatformConfig):
     repo because the copy they give us doesn't work for diffing.
 
     TODO(metzman): Try to eliminate the need for this by 1. Making the clone
-    from external github projects usable. 2. Forcing OSS-Fuzz on Github to clone
+    from external github projects usable. 2. Forcing OSS-Fuzz on GitHub to clone
     before starting CIFuzz."""
     return os.getenv('GITHUB_SHA')
 
@@ -131,7 +131,7 @@ class PlatformConfig(platform_config.BasePlatformConfig):
     repo because the copy they give us doesn't work for diffing.
 
     TODO(metzman): Try to eliminate the need for this by 1. Making the clone
-    from external github projects usable. 2. Forcing OSS-Fuzz on Github to clone
+    from external github projects usable. 2. Forcing OSS-Fuzz on GitHub to clone
     before starting CIFuzz."""
     if self._event == 'pull_request':
       pr_ref = f'refs/pull/{self._event_data["pull_request"]["number"]}/merge'

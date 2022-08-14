@@ -38,7 +38,7 @@ def get_comments(pull_request_number):
   pull_comments = list(pull.get_comments())
   issue = repo.get_issue(pull_request_number)
   issue_comments = list(issue.get_comments())
-  # Github only returns comments if from the pull object when a pull request is
+  # GitHub only returns comments if from the pull object when a pull request is
   # open. If it is a draft, it will only return comments from the issue object.
   return pull_comments + issue_comments
 
