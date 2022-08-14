@@ -13,15 +13,15 @@ Library builds embedding optimized assembly language code and those using pure C
 
 OpenSSL, BoringSSL and LibreSSL are assigned separate fuzzing targets because their exported symbols largely overlap and can therefore not be bundled into a single binary.
 
-At this time of writing, no differential testing is performed, because support for additional libraries is not ready yet, but I intend to support mbed TLS and libsodium shortly, and support for popular or built-in cryptography implementations for Go, Rust, Java and Javascript is planned.
+At this time of writing, no differential testing is performed, because support for additional libraries is not ready yet, but I intend to support mbed TLS and libsodium shortly, and support for popular or built-in cryptography implementations for Go, Rust, Java and JavaScript is planned.
 
 To further clear things up, at some point in the future, the matrix of support libraries versus fuzzing binaries could look like this:
 
-A binary embedding OpenSSL, mbed TLS, libsodium, Go, Rust, Java, Javascript, ..., ...
+A binary embedding OpenSSL, mbed TLS, libsodium, Go, Rust, Java, JavaScript, ..., ...
 
-A binary embedding BoringSSL, mbed TLS, libsodium, Go, Rust, Java, Javascript, ..., ...
+A binary embedding BoringSSL, mbed TLS, libsodium, Go, Rust, Java, JavaScript, ..., ...
 
-A binary embedding LibreSSL, mbed TLS, libsodium, Go, Rust, Java, Javascript, ..., ...
+A binary embedding LibreSSL, mbed TLS, libsodium, Go, Rust, Java, JavaScript, ..., ...
 
 and another 3 binaries for all of the pure C versions (no assembly language optimizations) of these libraries.
 
