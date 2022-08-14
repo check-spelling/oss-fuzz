@@ -134,7 +134,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
   Size -= 100;
 
   // The private data may or may not be used in the disassemble_architecture
-  // depending on the the target.
+  // depending on the target.
   memcpy(private_data, Data, 100);
   options[99] = '\0';
   Data += 100;

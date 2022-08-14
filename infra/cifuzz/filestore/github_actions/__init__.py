@@ -86,7 +86,7 @@ class GitHubActionsFilestore(filestore.BaseFilestore):
 
   def upload_corpus(self, name, directory, replace=False):
     """Uploads the corpus at |directory| to |name|."""
-    # Not applicable as the the entire corpus is uploaded under a single
+    # Not applicable as the entire corpus is uploaded under a single
     # artifact name.
     del replace
     return self._upload_directory(self.CORPUS_PREFIX + name, directory)
