@@ -191,7 +191,7 @@ class GetSanitizerTest(unittest.TestCase):
     self.assertEqual(config_utils._get_sanitizer(), self.sanitizer)
 
   def test_capitalization(self):
-    """Tests that that _get_sanitizer handles capitalization properly."""
+    """Tests that _get_sanitizer handles capitalization properly."""
     os.environ['SANITIZER'] = self.sanitizer.upper()
     self.assertEqual(config_utils._get_sanitizer(), self.sanitizer)
 
